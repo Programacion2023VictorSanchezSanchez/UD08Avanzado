@@ -9,8 +9,5 @@
         <module name="UD08Avanzado" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="UD08Avanzado" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
