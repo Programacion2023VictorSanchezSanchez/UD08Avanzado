@@ -1,9 +1,20 @@
 package T4SuppConsFunc;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -110,17 +121,77 @@ public class Main {
 
         // 8. Crea un predicado para encontrar elementos en la lista anterior que no empiecen por P.
         Predicate<List<String>> noEmpiezaPorP = (lista) ->{
-            boolean porP = false;
+            boolean porP = true;
             for(String s : lista){
-                if(s.startsWith("P")){
+                if(!s.startsWith("P")){
                     System.out.println(s);
-                    porP = true;
+                    porP = false;
                 }
             }
             return porP;
         };
 
         noEmpiezaPorP.test(cadenas);
+
+
+       // 9. Crea una lambda basada en Supplier que devuelva el String “Me gusta Java”. Imprime el resultado.
+        Supplier<String> meGusta = () -> "Me gusta Java";
+
+        System.out.println(meGusta.get());
+
+        // 10. Crea una lista con 5 Strings con nombres de Ciudad. Crea una lambda basada en Supplier que devuelve aleatoriamente un nombre de la lista anterior.
+
+        List<String> ciudades5 = Arrays.asList("Tokio", "Nueva York", "Londres", "París", "Roma");
+
+        Random random = new Random();
+
+        Supplier<String> ciudadAleatoria = () -> ciudades5.get(random.nextInt(ciudades5.size()));
+
+        System.out.println("Me voy de viaje a ... " + ciudadAleatoria.get());
+        System.out.println("Me voy de viaje a ... " + ciudadAleatoria.get());
+
+        // 11. Crea una lambda basada en Supplier que devuelva un String con la fecha actual. Busca información de cómo obtener la fecha y su formato.
+        Supplier<String> fechaActual = () ->{
+            LocalDateTime fecha = LocalDateTime.now();
+            return fecha.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
+        };
+
+        System.out.println("Fecha y hora actual " + fechaActual.get());
+
+        // 12. Crea una lambda basada en Supplier que devuelva String con el día de la semana actual.
+        Supplier<String> diaSemana = () -> {
+            DayOfWeek diaSemanaActual = LocalDate.now().getDayOfWeek();
+            return diaSemanaActual.toString();
+        };
+
+        System.out.println("El dia de la semana actual es: " + diaSemana.get());
+
+        // 13. Con la lista del ejercicio 10, llama al método foreach y pasale una lambda que muestre por pantalla todas la ciudades en mayúsculas.
+
+        ciudades5.forEach(ciudad -> System.out.println(ciudad.toUpperCase()));
+
+        // 14. Crea una función que devuelva la longitud de una cadena. Imprime la longitud de la cadena “Programación” utilizando la función
+        Function<String, Integer> longitudCadena = (cadena) -> cadena.length();
+
+        String cadena = "Programación";
+
+        System.out.println("Longitud de la cadena '" + cadena + "': " + longitudCadena.apply(cadena));
+
+        // 15. Crea una función que devuelva la potencia de dos de un número dado. Imprime la del número 4.
+        Function<Integer, Integer> potenciaDeDos = (numero) -> numero * numero;
+
+        System.out.println(potenciaDeDos.apply(4));
+
+        // 16. Crea una función que reciba un double y devuelva un string mostrando: “Resultado: numero”.
+
+        Function<Double, String> resultadoString = (numero) -> "Resultado: " + numero;
+
+        System.out.println(resultadoString.apply(3.14));
+
+
+
+
+
 
     }
 
