@@ -7,14 +7,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -188,11 +185,36 @@ public class Main {
 
         System.out.println(resultadoString.apply(3.14));
 
+        // 17.
+
+        // a. Muestra la lista por pantalla.
+        ciudades5.forEach(s-> System.out.println(s));
+
+        // b. Muestra el Map por pantalla utilizando foreach.
+
+        Function<String, Integer> f17 = s -> s.length();
+
+        HashMap<String, Integer> map = convertirListaEnMap(ciudades5, f17);
 
 
 
 
 
+
+
+    }
+
+    /**
+     * Metodo para el ejercicio 17
+     * @param lista que pasamos al metodo
+     * @param funcionValor function que pasamos al metodo
+     * @return map con strings y sus longitudes
+     */
+    public static HashMap<String, Integer> convertirListaEnMap(List<String> lista, Function<String, Integer> funcionValor){
+        HashMap<String, Integer> map = new HashMap<>();
+        lista.forEach(s -> map.put(s, funcionValor.apply(s)));
+
+        return map;
     }
 
 }
