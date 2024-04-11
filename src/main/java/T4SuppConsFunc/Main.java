@@ -197,6 +197,18 @@ public class Main {
         HashMap<String, Integer> map = convertirListaEnMap(ciudades5, f17);
 
 
+        // 18. Transforma a su equivalente referencia a método las siguientes expresiones lambda
+
+        // a
+
+        List<String> lista18 = Arrays.asList("hello", "world", "java", "lambda");
+
+        lista18.forEach(System.out::println);
+
+        // b
+
+        lista18.sort(String::compareTo);
+
 
 
 
