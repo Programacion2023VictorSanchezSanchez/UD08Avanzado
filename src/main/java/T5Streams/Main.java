@@ -2,8 +2,11 @@ package T5Streams;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,14 +25,64 @@ public class Main {
 
         // 2. Crea un stream que muestre por pantalla los empleados con sueldo mayor de 30000
 
-        empleados.stream().filter(empleado -> empleado.getSueldo() > 30000).forEach(System.out::println);
+        empleados.stream()
+                .filter(empleado -> empleado.getSueldo() > 30000)
+                .forEach(System.out::println);
+
+        System.out.println(""); System.out.println("");
 
         // 3. Crea un stream que muestre por pantalla los empleados de Informática
 
-        empleados.stream().filter(empleado -> empleado.getDepartamento().equals(Departamento.INFORMATICA)).forEach(System.out::println);
+        empleados.stream()
+                .filter(empleado -> empleado.getDepartamento().equals(Departamento.INFORMATICA))
+                .forEach(System.out::println);
+
+        System.out.println(""); System.out.println("");
 
         // 4. Crea un stream que muestre por pantalla los empleados de Contabilidad con sueldo mayor de 30000 ordenado por sueldo. Utiliza peek para ver los resultados intermedios
-        empleados.stream().filter(empleado -> empleado.getSueldo() > 30000 && empleado.getDepartamento().equals(Departamento.CONTABILIDAD)).sorted(Comparator.comparing(Empleado::getSueldo)).forEach(System.out::println);
+        empleados.stream()
+                .filter(empleado -> empleado.getSueldo() > 30000 && empleado.getDepartamento().equals(Departamento.CONTABILIDAD))
+                .sorted(Comparator.comparing(Empleado::getSueldo))
+                .forEach(System.out::println);
+
+        System.out.println(""); System.out.println("");
+
+        // 5. Crea un stream que devuelva una lista de String con los nombres del departamento de informática. Imprímela por pantalla.
+
+        List<String> nombresInformatica5 = empleados.stream()
+        .filter(empleado -> empleado.getDepartamento().equals(Departamento.INFORMATICA))
+                .map(Empleado::getNombre)
+                .collect(Collectors.toList());
+
+        System.out.println(nombresInformatica5);
+
+        System.out.println(""); System.out.println("");
+
+        // 6. Crea un stream que devuelva un array de String con nombre+ sueldo, ordenada por sueldo. Imprimir por pantalla.
+        String [] ejercicio6 = (String[]) empleados.stream()
+                .sorted(Comparator.comparing(Empleado::getSueldo))
+                .map(empleado -> empleado.getNombre() + " " + empleado.getSueldo())
+                .toArray(String[]::new);
+
+        System.out.println(Arrays.toString(ejercicio6));
+
+        System.out.println(""); System.out.println("");
+
+        // 7. Crea un stream que ordena por departamento y por apellido e imprime Departamento+apellido
+        empleados.stream()
+                .sorted(Comparator.comparing(Empleado::getDepartamento)
+                .thenComparing(Empleado::getApellidos))
+                .forEach(empleado -> System.out.println(empleado.getDepartamento() + " " + empleado.getApellidos()));
+
+        System.out.println(""); System.out.println("");
+
+        // 8. Crea un stream que imprime los empleados que entraron a la empresa el 2022
+
+        empleados.stream()
+                .filter(empleado -> empleado.getFechaEntrada().getYear() == 2022)
+                .forEach(System.out::println);
+
+
 
     }
 }
