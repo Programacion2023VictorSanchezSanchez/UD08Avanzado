@@ -1,6 +1,7 @@
 package T5Streams;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -50,7 +51,7 @@ public class Main {
         // 5. Crea un stream que devuelva una lista de String con los nombres del departamento de informática. Imprímela por pantalla.
 
         List<String> nombresInformatica5 = empleados.stream()
-        .filter(empleado -> empleado.getDepartamento().equals(Departamento.INFORMATICA))
+                .filter(empleado -> empleado.getDepartamento().equals(Departamento.INFORMATICA))
                 .map(Empleado::getNombre)
                 .collect(Collectors.toList());
 
@@ -82,6 +83,37 @@ public class Main {
                 .filter(empleado -> empleado.getFechaEntrada().getYear() == 2022)
                 .forEach(System.out::println);
 
+        System.out.println(""); System.out.println("");
+
+        // 9. Crea un stream que imprima la fecha de entrada de los empleados en formato local (12 abril 2023)
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+
+        empleados.stream()
+                .map(empleado -> empleado.getFechaEntrada().format(formatter))
+                .forEach(fechaFormateada -> System.out.println("Fecha de entrada del empleado: " + fechaFormateada));
+
+        System.out.println(""); System.out.println("");
+
+        // 10. Crea un stream que imprima el empleado con sueldo máximo
+
+        String empleadoSuledoMax = empleados.stream()
+                .max(Comparator.comparing(Empleado::getSueldo))
+                .toString();
+
+        System.out.println(empleadoSuledoMax);
+
+        System.out.println(""); System.out.println("");
+
+        // 11. Crea un stream que nos diga el número total de empleados de Informática, imprime el resultado
+
+        long numEmpleadosInformatica = empleados.stream()
+                .filter(empleado -> empleado.getDepartamento() == Departamento.INFORMATICA)
+                .count();
+
+        System.out.println("Número total de empleados de Informática: " + numEmpleadosInformatica);
+
+        System.out.println(""); System.out.println("");
 
 
     }
