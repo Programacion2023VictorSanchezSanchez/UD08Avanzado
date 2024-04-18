@@ -66,8 +66,15 @@ public class T6ExpresionesRegulares {
 
         // 7. Nos han pedido encontrar en el Log de un servidor Web las ips que han accedido de la red 192.168.1.0. Crea una expresión regular que encuentre las ips de esta red (recuerda que la red va de 192.168.1.1 a la 192.168.1.254) y la fecha de acceso.
 
-        String regex7 = "192\\.168\\.1\\.\\d{1,3} - - \\[\\d{1,2}/[a-zA-Z]{3}/\\d{4}";
+        String regex7 = "(192\\.168\\.1\\.\\d{1,3}) - - \\[(\\d{1,2}/[a-zA-Z]{3}/\\d{4})";
+        String log = "192.168.1.10 - - [11/Apr/2024:12:00:00] \"GET /pagina1 HTTP/1.1\" 200 1234";
+        Pattern pattern7 = Pattern.compile(regex7);
+        Matcher matcher7 = pattern7.matcher(log);
 
+        while(matcher7.find()){
+            System.out.println(matcher7.group(1) + " " +  matcher7.group(2));
+
+        }
 
 
         System.out.println(" "); System.out.println(" ");
