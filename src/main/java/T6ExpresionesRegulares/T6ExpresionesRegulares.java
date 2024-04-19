@@ -1,5 +1,9 @@
 package T6ExpresionesRegulares;
 
+import javafx.css.Match;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,5 +82,52 @@ public class T6ExpresionesRegulares {
 
 
         System.out.println(" "); System.out.println(" ");
+
+        // 8. A partir del siguiente texto, que contiene puntos de una gráfica extrae el contenido dentro de las llaves {}, crea una lista con los puntos e imprímelos.
+
+        String puntos = "{0,2}, {1,5}, {20,3}, {300,4}";
+        String regex8 = "\\{(\\d+),(\\d+)}";
+        Pattern pattern8 = Pattern.compile(regex8);
+        Matcher matcher8 = pattern8.matcher(puntos);
+
+        List<Punto> listaPuntos = new ArrayList<Punto>();
+        Punto punto;
+        while(matcher8.find()){
+            try{
+                int x = Integer.parseInt(matcher8.group(1));
+                int y = Integer.parseInt(matcher8.group(2));
+                punto = new Punto(x,y);
+                listaPuntos.add(punto);
+            }catch (NumberFormatException e){
+                System.out.println("Error en el formato del fichero");
+            }
+        }
+        listaPuntos.forEach(System.out::println);
+
+        System.out.println(" "); System.out.println(" ");
+
+
+        // 9. Dado el siguiente string Crea una clase persona con los campos anteriores, Extrae la información del string anterior y crea una lista con las personas del string, imprímela.
+
+        String personas = "Nombre:Juan,DNI:12345678A,Teléfono:123456789,Dirección:Calle 123\n" +
+                "Nombre:María,DNI:87654321B,Teléfono:987654321,Dirección:Avenida XYZ\n" +
+                "Nombre:Carlos,DNI:98765432C,Teléfono:987654321,Dirección:Calle 456";
+
+        String regex9 = "Nombre:([a-zA-Záéíóúñ]+),DNI:(\\d{8}[A-HJ-NP-TV-Z]),Teléfono:(\\d{9}),Dirección:(.+)";
+        Pattern pattern9 = Pattern.compile(regex9);
+        Matcher matcher9 = pattern9.matcher(personas);
+
+        List<Persona> listaPersonas = new ArrayList<Persona>();
+
+
+        while(matcher9.find()){
+            Persona persona = new Persona(matcher9.group(1), matcher9.group(2), matcher9.group(3), matcher9.group(4));
+            listaPersonas.add(persona);
+        }
+        listaPersonas.forEach(System.out::println);
+
+
+
+
     }
 }
